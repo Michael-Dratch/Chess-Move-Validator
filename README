@@ -1,0 +1,15 @@
+Last sessions:
+
+Finished input validation
+Created the algorithm to extract positions of pieces from the input strings
+
+
+TODO:
+
+Input:
+
+Use extract position algorithm to build a board array.
+Return this board array to main
+
+create method to return piece object to be analyzed
+
