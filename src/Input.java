@@ -8,28 +8,58 @@ public class Input {
 	private final String blackStartToken = "BLACK:";
 	private final String pieceStartToken = "PIECE TO MOVE:";
 
+	private enum color {
+		WHITE, BLACK
+	};
+
 	public Input() {
 		this.validator = new InputValidator();
 	}
 
-	public int[][] createBoard(String input) {
-		input = input.toUpperCase();
+	public int[][] getBoard(String inputText) {
+		String input = inputText.toUpperCase();
 		this.validator.validateInput(input);
 		String whiteLine = input.substring(input.indexOf(whiteStartToken), input.indexOf(blackStartToken));
 		String blackLine = input.substring(input.indexOf(blackStartToken), input.indexOf(pieceStartToken));
-		String pieceLine = input.substring(input.indexOf(pieceStartToken));
 
 		String[] whitePieces = parsePieces(whiteLine);
 		String[] blackPieces = parsePieces(blackLine);
-		String[] pieceToMove = parsePieces(pieceLine);
 
 		this.validator.validatePieces(whitePieces);
 		this.validator.validatePieces(blackPieces);
-		this.validator.validatePieces(pieceToMove);
+		ArrayList<int[]> whitePositions = extractPositions(whitePieces);
+		ArrayList<int[]> blackPositions = extractPositions(blackPieces);
 
-//		int[][] whitePositions = extractPositions(whitePieces);
+		this.validator.validateNoRepeatingPositions(whitePositions, blackPositions);
+
 		int[][] board = getEmptyBoard();
+		insertPieces(board, whitePositions, color.WHITE);
+		insertPieces(board, blackPositions, color.BLACK);
 		return board;
+	}
+
+	public Piece getPieceToMove(String inputText) {
+		String input = inputText.toUpperCase();
+		this.validator.validateInput(input);
+		String pieceLine = input.substring(input.indexOf(pieceStartToken));
+		String[] pieceToMove = parsePieces(pieceLine);
+		this.validator.validatePieceToMoveList(pieceToMove);
+
+		char pieceTypeLetter = pieceToMove[0].charAt(0);
+		Piece.PieceType type = getPieceType(pieceTypeLetter);
+
+		int[] piecePosition = extractPositions(pieceToMove).get(0);
+		return new Piece(type, piecePosition);
+	}
+
+	private void insertPieces(int[][] board, ArrayList<int[]> positions, color color) {
+		int piece = 1;
+		if (color == color.BLACK) {
+			piece = -1;
+		}
+		for (int[] p : positions) {
+			board[p[0]][p[1]] = piece;
+		}
 	}
 
 	private String[] parsePieces(String input) {
@@ -67,21 +97,44 @@ public class Input {
 		return positions;
 	}
 
+	private Piece.PieceType getPieceType(char pieceTypeLetter) {
+		Piece.PieceType piece = null;
+		switch (pieceTypeLetter) {
+		case 'K':
+			piece = Piece.PieceType.KING;
+			break;
+		case 'Q':
+			piece = Piece.PieceType.QUEEN;
+			break;
+		case 'R':
+			piece = Piece.PieceType.ROOK;
+			break;
+		case 'B':
+			piece = Piece.PieceType.BISHOP;
+			break;
+		case 'N':
+			piece = Piece.PieceType.KNIGHT;
+			break;
+		case 'P':
+			piece = Piece.PieceType.PAWN;
+		}
+		return piece;
+	}
+
 	private class InputValidator {
 
 		final String errorMessage = """
-				Invalid Input.
+				Invalid Input
 				Input Criteria:
 				- The format of a piece should be the first Letter of the piece name followed by the column letter and row number of its position.
 				- Put white and black pieces on separate lines beginning with labels 'WHITE:' and 'BLACK:'.
-				-Pieces should be seperated by commas.
+				-Pieces should be seperated by commas and there cannot be any duplicate positions.
 				- Lastly, put a third label 'PIECE TO MOVE:' followed by the piece information for the piece to be analyzed.
 
 				Example input:
 				WHITE: Rf1, Kg1, Pf2, Ph2, Pg3
 				BLACK: Kb8, Ne8, Pa7, Pc7, Ra5
 				PIECE TO MOVE: Rf1
-
 				""";
 
 		private void validateInput(String input) {
@@ -117,6 +170,27 @@ public class Input {
 			boolean formatIsCorrect = piece.matches("[KQRBNP][A-H][1-8]");
 			if (!formatIsCorrect) {
 				throw new IllegalArgumentException(this.errorMessage);
+			}
+		}
+
+		private void validatePieceToMoveList(String[] pieces) {
+			if (pieces.length != 1) {
+				throw new IllegalArgumentException(this.errorMessage);
+			}
+			validatePieceInfo(pieces[0]);
+		}
+
+		private void validateNoRepeatingPositions(ArrayList<int[]> whitePositions, ArrayList<int[]> blackPositions) {
+			ArrayList<int[]> allPositions = new ArrayList<>(whitePositions);
+			allPositions.addAll(blackPositions);
+			for (int[] currentP : allPositions) {
+				ArrayList<int[]> tempPositions = (ArrayList<int[]>) allPositions.clone();
+				tempPositions.remove(currentP);
+				for (int[] p : tempPositions) {
+					if (currentP[0] == p[0] && currentP[1] == p[1]) {
+						throw new IllegalArgumentException(this.errorMessage);
+					}
+				}
 			}
 		}
 	}
