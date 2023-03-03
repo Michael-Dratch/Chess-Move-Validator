@@ -12,20 +12,27 @@ public class PawnMoveFinder extends MoveFinder {
 			return moves;
 		}
 
-		if (isFirstSpaceAheadBlocked(board, piece)) {
-			return moves;
+		if (isFirstSpaceAheadOpen(board, piece)) {
+			addForwardMove(piece, moves, 1);
 		}
 
-		if (isSecondSpaceAheadBlocked(board, piece) && isInStartingPosition(piece)) {
-			addTwoInFrontMoves(piece, moves);
-		} else {
-			addOneInFrontMove(piece, moves);
+		if (isFirstSpaceAheadOpen(board, piece) && isSecondSpaceAheadOpen(board, piece)
+				&& isInStartingPosition(piece)) {
+			addForwardMove(piece, moves, 2);
+		}
+
+		if (isForwardRightSpaceAnOppositeColorPiece(board, piece)) {
+			addForwardRightMove(piece, moves);
+		}
+
+		if (isForwardLeftSpaceAnOppositeColorPiece(board, piece)) {
+			addForwardLeftMove(piece, moves);
 		}
 		return moves;
 	}
 
-	private boolean isFirstSpaceAheadBlocked(int[][] board, Piece piece) {
-		return getValueAtBoardPosition(board, getOneAheadPosition(piece)) != 0;
+	private boolean isFirstSpaceAheadOpen(int[][] board, Piece piece) {
+		return getValueAtBoardPosition(board, getOneAheadPosition(piece)) == 0;
 	}
 
 	private static int getValueAtBoardPosition(int[][] board, int[] position) {
@@ -35,20 +42,20 @@ public class PawnMoveFinder extends MoveFinder {
 	private int[] getOneAheadPosition(Piece piece) {
 		int[] position = piece.getPosition();
 		int oneAhead = 1;
-		if (piece.getColor() == Piece.Color.BLACK) {
+		if (piece.isBlack()) {
 			oneAhead = -1;
 		}
 		return new int[] { position[0] + oneAhead, position[1] };
 	}
 
-	private boolean isSecondSpaceAheadBlocked(int[][] board, Piece piece) {
+	private boolean isSecondSpaceAheadOpen(int[][] board, Piece piece) {
 		return getValueAtBoardPosition(board, getTwoAheadPosition(piece)) == 0;
 	}
 
 	private int[] getTwoAheadPosition(Piece piece) {
 		int[] position = piece.getPosition();
 		int oneAhead = 2;
-		if (piece.getColor() == Piece.Color.BLACK) {
+		if (piece.isBlack()) {
 			oneAhead = -2;
 		}
 		return new int[] { position[0] + oneAhead, position[1] };
@@ -62,30 +69,75 @@ public class PawnMoveFinder extends MoveFinder {
 	}
 
 	private static int getStartRow(Piece piece) {
-		if (piece.getColor() == Piece.Color.BLACK) {
+		if (piece.isBlack()) {
 			return 6;
 		}
 		return 1;
 	}
 
-	private static void addOneInFrontMove(Piece piece, ArrayList<int[]> moves) {
+	private static void addForwardMove(Piece piece, ArrayList<int[]> moves, int numSpaces) {
 		int[] position = piece.getPosition();
-		if (piece.getColor() == Piece.Color.WHITE) {
-			moves.add(new int[] { position[0] + 1, position[1] });
-		} else {
-			moves.add(new int[] { position[0] - 1, position[1] });
+		if (piece.isBlack()) {
+			numSpaces *= -1;
 		}
+		moves.add(new int[] { position[0] + numSpaces, position[1] });
 	}
 
-	private static void addTwoInFrontMoves(Piece piece, ArrayList<int[]> moves) {
-		int[] position = piece.getPosition();
-		int oneAhead = 1, twoAhead = 2;
-		if (piece.getColor() == Piece.Color.BLACK) {
-			oneAhead = -1;
-			twoAhead = -2;
+	private boolean isForwardRightSpaceAnOppositeColorPiece(int[][] board, Piece piece) {
+		if (isInRightCol(piece)) {
+			return false;
 		}
+		int[] position = piece.getPosition();
 
-		moves.add(new int[] { position[0] + oneAhead, position[1] });
-		moves.add(new int[] { position[0] + twoAhead, position[1] });
+		if (piece.isBlack()) {
+			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] - 1, position[1] + 1 });
+			if (spaceValue == 1) {
+				return true;
+			}
+		} else {
+			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] + 1, position[1] + 1 });
+			if (spaceValue == -1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isForwardLeftSpaceAnOppositeColorPiece(int[][] board, Piece piece) {
+		if (isInLeftCol(piece)) {
+			return false;
+		}
+		int[] position = piece.getPosition();
+
+		if (piece.isBlack()) {
+			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] - 1, position[1] - 1 });
+			if (spaceValue == 1) {
+				return true;
+			}
+		} else {
+			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] + 1, position[1] - 1 });
+			if (spaceValue == -1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static void addForwardRightMove(Piece piece, ArrayList<int[]> moves) {
+		int[] position = piece.getPosition();
+		int forward = 1;
+		if (piece.isBlack()) {
+			forward = -1;
+		}
+		moves.add(new int[] { position[0] + forward, position[1] + 1 });
+	}
+
+	private static void addForwardLeftMove(Piece piece, ArrayList<int[]> moves) {
+		int[] position = piece.getPosition();
+		int forward = 1;
+		if (piece.isBlack()) {
+			forward = -1;
+		}
+		moves.add(new int[] { position[0] + forward, position[1] - 1 });
 	}
 }

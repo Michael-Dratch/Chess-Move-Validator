@@ -18,4 +18,20 @@ public abstract class MoveFinder {
 		return false;
 	}
 
+	protected boolean isInRightCol(Piece piece) {
+		if (piece.getPosition()[1] == 7) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	protected boolean isInLeftCol(Piece piece) {
+		if (piece.getPosition()[1] == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

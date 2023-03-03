@@ -29,6 +29,10 @@ public class Piece {
 		return color;
 	}
 
+	public boolean isBlack() {
+		return this.color == Color.BLACK;
+	}
+
 	public int[] getPosition() {
 		return position;
 	}

@@ -104,6 +104,30 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 	}
 
 	@Test
+	void BlackPawnA6BlackPieceA5HasNoMoves() {
+		int[][] board = getEmptyBoard();
+		board[5][0] = -1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 0 });
+		int[][] expectedMoves = {};
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+
+		assertFoundMovesCorrect(expectedMoves, moves);
+	}
+
+	@Test
+	void BlackPawnA6BlackPieceA4OnlyHasA5() {
+		int[][] board = getEmptyBoard();
+		board[4][0] = -1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 0 });
+		int[][] expectedMoves = { { 5, 0 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+
+		assertFoundMovesCorrect(expectedMoves, moves);
+	}
+
+	@Test
 	void WhitePawnA2WhitePieceA4OnlyHasA3() {
 		int[][] board = getEmptyBoard();
 		board[3][0] = 1;
@@ -113,5 +137,100 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
+	}
+
+	@Test
+	void WhitePawnA2WhitePieceB3NoDiagonalMoves() {
+		int[][] board = getEmptyBoard();
+		board[3][1] = 1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
+		int[][] expectedMoves = { { 2, 0 }, { 3, 0 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+
+	}
+
+	@Test
+	void WhitePawnA2BlackPieceB3FindsDiagonalMove() {
+		int[][] board = getEmptyBoard();
+		board[2][1] = -1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
+		int[][] expectedMoves = { { 2, 0 }, { 3, 0 }, { 2, 1 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+
+	}
+
+	@Test
+	void BlackPawnB6WhitePieceC5FindsDiagonalMove() {
+		int[][] board = getEmptyBoard();
+		board[5][2] = 1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 1 });
+		int[][] expectedMoves = { { 5, 1 }, { 4, 1 }, { 5, 2 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+
+	}
+
+	@Test
+	void BlackPawnOnRightColFindsNoDiagonalMove() {
+		int[][] board = getEmptyBoard();
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 7 });
+		int[][] expectedMoves = { { 5, 7 }, { 4, 7 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+
+	}
+
+	@Test
+	void WhitePawnD2WhitePieceC3NoDiagonalMoves() {
+		int[][] board = getEmptyBoard();
+		board[2][2] = 1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 3 });
+		int[][] expectedMoves = { { 2, 3 }, { 3, 3 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+
+	}
+
+	@Test
+	void WhitePawnD2BlackPieceC3FindsDiagonalMove() {
+		int[][] board = getEmptyBoard();
+		board[2][2] = -1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 3 });
+		int[][] expectedMoves = { { 2, 3 }, { 3, 3 }, { 2, 2 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+	}
+
+	@Test
+	void BlackPawnD6WhitePieceC5FindsDiagonalMove() {
+		int[][] board = getEmptyBoard();
+		board[5][2] = 1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 3 });
+		int[][] expectedMoves = { { 5, 3 }, { 4, 3 }, { 5, 2 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+
+	}
+
+	@Test
+	void WhitePawnWithTwoDiagonalMoves() {
+		int[][] board = getEmptyBoard();
+		board[2][0] = -1;
+		board[2][2] = -1;
+		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 1 });
+		int[][] expectedMoves = { { 2, 1 }, { 3, 1 }, { 2, 0 }, { 2, 2 } };
+
+		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		assertFoundMovesCorrect(expectedMoves, moves);
+
 	}
 }
