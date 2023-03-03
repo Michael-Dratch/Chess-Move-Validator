@@ -1,23 +1,35 @@
 
 public class Piece {
 
-    public enum PieceType {
-        KING, QUEEN, ROOK, BISHOP, KNIGHT, PAWN
-    }
+	public enum PieceType {
+		KING, QUEEN, ROOK, BISHOP, KNIGHT, PAWN
+	}
 
-    private final PieceType type;
-    private final int[] position;
+	public enum Color {
+		WHITE, BLACK
+	}
 
-    public Piece(PieceType type, int[] position){
-        this.type = type;
-        this.position = position;
-    }
+	private final PieceType type;
 
-    public PieceType getType(){
-        return type;
-    }
+	private final Color color;
 
-    public int[] getPosition(){
-        return position;
-    }
+	private final int[] position;
+
+	public Piece(PieceType type, Color color, int[] position) {
+		this.type = type;
+		this.color = color;
+		this.position = position;
+	}
+
+	public PieceType getType() {
+		return type;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public int[] getPosition() {
+		return position;
+	}
 }

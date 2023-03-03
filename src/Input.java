@@ -44,12 +44,26 @@ public class Input {
 		String pieceLine = input.substring(input.indexOf(pieceStartToken));
 		String[] pieceToMove = parsePieces(pieceLine);
 		this.validator.validatePieceToMoveList(pieceToMove);
-
 		char pieceTypeLetter = pieceToMove[0].charAt(0);
-		Piece.PieceType type = getPieceType(pieceTypeLetter);
 
+		Piece.PieceType type = getPieceType(pieceTypeLetter);
 		int[] piecePosition = extractPositions(pieceToMove).get(0);
-		return new Piece(type, piecePosition);
+		Piece.Color color = getColor(input, pieceToMove[0]);
+
+		return new Piece(type, color, piecePosition);
+	}
+
+	private Piece.Color getColor(String input, String pieceToMoveString) {
+		String whiteLine = input.substring(input.indexOf(whiteStartToken), input.indexOf(blackStartToken));
+		String[] whitePieces = parsePieces(whiteLine);
+
+		Piece.Color color = Piece.Color.BLACK;
+		for (String piece : whitePieces) {
+			if (pieceToMoveString.equals(piece)) {
+				color = Piece.Color.WHITE;
+			}
+		}
+		return color;
 	}
 
 	private void insertPieces(int[][] board, ArrayList<int[]> positions, color color) {

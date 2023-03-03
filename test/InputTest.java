@@ -68,9 +68,11 @@ public class InputTest {
 		assertTrue(actualMessage.equals(expectedMessage));
 	}
 
-	private void assertCorrectPiece(String input, Piece.PieceType expectedType, int[] expectedPosition) {
+	private void assertCorrectPiece(String input, Piece.PieceType expectedType, Piece.Color expectedColor,
+			int[] expectedPosition) {
 		Piece piece = this.input.getPieceToMove(input);
 		assertEquals(expectedType, piece.getType());
+		assertEquals(expectedColor, piece.getColor());
 		assertEquals(expectedPosition[0], piece.getPosition()[0]);
 		assertEquals(expectedPosition[1], piece.getPosition()[1]);
 	}
@@ -235,31 +237,31 @@ public class InputTest {
 	@Test
 	void getPieceToMoveKa1() {
 		String input = """
-				WHITE:
+				WHITE: Ka1
 				BLACK:
 				PIECE TO MOVE: Ka1""";
 
-		assertCorrectPiece(input, Piece.PieceType.KING, new int[] { 0, 0 });
+		assertCorrectPiece(input, Piece.PieceType.KING, Piece.Color.WHITE, new int[] { 0, 0 });
 	}
 
 	@Test
 	void getPieceToMovePh8() {
 		String input = """
 				WHITE:
-				BLACK:
+				BLACK: Ph8
 				PIECE TO MOVE: Ph8""";
 
-		assertCorrectPiece(input, Piece.PieceType.PAWN, new int[] { 7, 7 });
+		assertCorrectPiece(input, Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 7, 7 });
 	}
 
 	@Test
 	void getPieceToMoveBd5() {
 		String input = """
-				WHITE:
-				BLACK:
+				WHITE: Bd5
+				BLACK: Qa2
 				PIECE TO MOVE: Bd5""";
 
-		assertCorrectPiece(input, Piece.PieceType.BISHOP, new int[] { 4, 3 });
+		assertCorrectPiece(input, Piece.PieceType.BISHOP, Piece.Color.WHITE, new int[] { 4, 3 });
 	}
 
 }

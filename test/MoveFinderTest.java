@@ -18,6 +18,7 @@ public abstract class MoveFinderTest {
 			for (int[] move : resultMoves) {
 				if (expectedMove[0] == move[0] && expectedMove[1] == move[1]) {
 					found = true;
+					break;
 				}
 			}
 			assertEquals(true, found);
