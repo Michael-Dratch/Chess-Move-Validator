@@ -62,10 +62,7 @@ public class PawnMoveFinder extends MoveFinder {
 	}
 
 	private boolean isInStartingPosition(Piece piece) {
-		if (piece.getPosition()[0] == getStartRow(piece)) {
-			return true;
-		}
-		return false;
+		return piece.getPosition()[0] == getStartRow(piece);
 	}
 
 	private static int getStartRow(Piece piece) {
@@ -77,10 +74,11 @@ public class PawnMoveFinder extends MoveFinder {
 
 	private static void addForwardMove(Piece piece, ArrayList<int[]> moves, int numSpaces) {
 		int[] position = piece.getPosition();
+		int spacesAhead = numSpaces;
 		if (piece.isBlack()) {
-			numSpaces *= -1;
+			spacesAhead *= -1;
 		}
-		moves.add(new int[] { position[0] + numSpaces, position[1] });
+		moves.add(new int[] { position[0] + spacesAhead, position[1] });
 	}
 
 	private boolean isForwardRightSpaceAnOppositeColorPiece(int[][] board, Piece piece) {
@@ -91,16 +89,11 @@ public class PawnMoveFinder extends MoveFinder {
 
 		if (piece.isBlack()) {
 			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] - 1, position[1] + 1 });
-			if (spaceValue == 1) {
-				return true;
-			}
+			return spaceValue == 1;
 		} else {
 			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] + 1, position[1] + 1 });
-			if (spaceValue == -1) {
-				return true;
-			}
+			return spaceValue == -1;
 		}
-		return false;
 	}
 
 	private boolean isForwardLeftSpaceAnOppositeColorPiece(int[][] board, Piece piece) {
@@ -111,16 +104,11 @@ public class PawnMoveFinder extends MoveFinder {
 
 		if (piece.isBlack()) {
 			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] - 1, position[1] - 1 });
-			if (spaceValue == 1) {
-				return true;
-			}
+			return spaceValue == 1;
 		} else {
 			int spaceValue = getValueAtBoardPosition(board, new int[] { position[0] + 1, position[1] - 1 });
-			if (spaceValue == -1) {
-				return true;
-			}
+			return spaceValue == -1;
 		}
-		return false;
 	}
 
 	private static void addForwardRightMove(Piece piece, ArrayList<int[]> moves) {

@@ -8,9 +8,9 @@ public class Input {
 	private final String blackStartToken = "BLACK:";
 	private final String pieceStartToken = "PIECE TO MOVE:";
 
-	private enum color {
+	private enum Color {
 		WHITE, BLACK
-	};
+	}
 
 	public Input() {
 		this.validator = new InputValidator();
@@ -33,8 +33,8 @@ public class Input {
 		this.validator.validateNoRepeatingPositions(whitePositions, blackPositions);
 
 		int[][] board = getEmptyBoard();
-		insertPieces(board, whitePositions, color.WHITE);
-		insertPieces(board, blackPositions, color.BLACK);
+		insertPieces(board, whitePositions, Color.WHITE);
+		insertPieces(board, blackPositions, Color.BLACK);
 		return board;
 	}
 
@@ -61,14 +61,15 @@ public class Input {
 		for (String piece : whitePieces) {
 			if (pieceToMoveString.equals(piece)) {
 				color = Piece.Color.WHITE;
+				break;
 			}
 		}
 		return color;
 	}
 
-	private void insertPieces(int[][] board, ArrayList<int[]> positions, color color) {
+	private void insertPieces(int[][] board, ArrayList<int[]> positions, Color color) {
 		int piece = 1;
-		if (color == color.BLACK) {
+		if (color == Color.BLACK) {
 			piece = -1;
 		}
 		for (int[] p : positions) {
@@ -112,7 +113,7 @@ public class Input {
 	}
 
 	private Piece.PieceType getPieceType(char pieceTypeLetter) {
-		Piece.PieceType piece = null;
+		Piece.PieceType piece;
 		switch (pieceTypeLetter) {
 		case 'K':
 			piece = Piece.PieceType.KING;
@@ -129,7 +130,7 @@ public class Input {
 		case 'N':
 			piece = Piece.PieceType.KNIGHT;
 			break;
-		case 'P':
+		default:
 			piece = Piece.PieceType.PAWN;
 		}
 		return piece;
