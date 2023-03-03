@@ -99,6 +99,7 @@ public class Input {
 	private ArrayList<int[]> extractPositions(String[] pieces) {
 		ArrayList<int[]> positions = new ArrayList<>();
 		String rows = "12345678";
+		@SuppressWarnings("SpellCheckingInspection")
 		String cols = "ABCDEFGH";
 
 		for (String piece : pieces) {
