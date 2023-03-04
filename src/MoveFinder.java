@@ -1,8 +1,8 @@
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MoveFinder {
 
-	abstract ArrayList<int[]> findMoves(int[][] bord, Piece piece);
+	abstract List<int[]> findMoves(int[][] bord, Piece piece);
 
 	protected boolean isInLastRow(Piece piece) {
 		if (piece.isBlack()) {

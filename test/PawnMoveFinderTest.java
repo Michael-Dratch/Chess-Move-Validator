@@ -3,7 +3,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PawnMoveFinderTest extends MoveFinderTest {
 
@@ -20,7 +20,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 2, 0 });
 		int[][] expectedMoves = { { 3, 0 } };
 
-		ArrayList<int[]> resultMoves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> resultMoves = this.moveFinder.findMoves(board, pawn);
 		assertEquals(1, resultMoves.size());
 		assertFoundMovesCorrect(expectedMoves, resultMoves);
 	}
@@ -31,7 +31,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 5, 0 });
 		int[][] expectedMoves = { { 4, 0 } };
 
-		ArrayList<int[]> resultMoves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> resultMoves = this.moveFinder.findMoves(board, pawn);
 		System.out.println("testing");
 		assertFoundMovesCorrect(expectedMoves, resultMoves);
 		System.out.println("done testing");
@@ -43,7 +43,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
 		int[][] expectedMoves = { { 2, 0 }, { 3, 0 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -54,7 +54,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 0 });
 		int[][] expectedMoves = { { 5, 0 }, { 4, 0 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -64,7 +64,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		int[][] board = getEmptyBoard();
 		int[][] expectedMoves = {};
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 7, 0 });
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -74,7 +74,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		int[][] board = getEmptyBoard();
 		int[][] expectedMoves = {};
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 0, 0 });
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -86,7 +86,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
 		int[][] expectedMoves = {};
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -98,7 +98,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
 		int[][] expectedMoves = { { 2, 0 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -110,7 +110,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 0 });
 		int[][] expectedMoves = {};
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -122,7 +122,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 0 });
 		int[][] expectedMoves = { { 5, 0 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -134,7 +134,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
 		int[][] expectedMoves = { { 2, 0 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
@@ -146,7 +146,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
 		int[][] expectedMoves = { { 2, 0 }, { 3, 0 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 
 	}
@@ -158,7 +158,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 0 });
 		int[][] expectedMoves = { { 2, 0 }, { 3, 0 }, { 2, 1 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 
 	}
@@ -170,7 +170,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 1 });
 		int[][] expectedMoves = { { 5, 1 }, { 4, 1 }, { 5, 2 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 
 	}
@@ -181,7 +181,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 7 });
 		int[][] expectedMoves = { { 5, 7 }, { 4, 7 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 
 	}
@@ -193,7 +193,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 3 });
 		int[][] expectedMoves = { { 2, 3 }, { 3, 3 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 
 	}
@@ -205,7 +205,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 3 });
 		int[][] expectedMoves = { { 2, 3 }, { 3, 3 }, { 2, 2 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 	}
 
@@ -216,7 +216,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.BLACK, new int[] { 6, 3 });
 		int[][] expectedMoves = { { 5, 3 }, { 4, 3 }, { 5, 2 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 
 	}
@@ -229,7 +229,7 @@ public class PawnMoveFinderTest extends MoveFinderTest {
 		Piece pawn = new Piece(Piece.PieceType.PAWN, Piece.Color.WHITE, new int[] { 1, 1 });
 		int[][] expectedMoves = { { 2, 1 }, { 3, 1 }, { 2, 0 }, { 2, 2 } };
 
-		ArrayList<int[]> moves = this.moveFinder.findMoves(board, pawn);
+		List<int[]> moves = this.moveFinder.findMoves(board, pawn);
 		assertFoundMovesCorrect(expectedMoves, moves);
 
 	}

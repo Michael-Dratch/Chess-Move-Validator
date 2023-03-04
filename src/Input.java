@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Input {
 
@@ -27,8 +28,8 @@ public class Input {
 
 		this.validator.validatePieces(whitePieces);
 		this.validator.validatePieces(blackPieces);
-		ArrayList<int[]> whitePositions = extractPositions(whitePieces);
-		ArrayList<int[]> blackPositions = extractPositions(blackPieces);
+		List<int[]> whitePositions = extractPositions(whitePieces);
+		List<int[]> blackPositions = extractPositions(blackPieces);
 
 		this.validator.validateNoRepeatingPositions(whitePositions, blackPositions);
 
@@ -67,7 +68,7 @@ public class Input {
 		return color;
 	}
 
-	private void insertPieces(int[][] board, ArrayList<int[]> positions, Color color) {
+	private void insertPieces(int[][] board, List<int[]> positions, Color color) {
 		int piece = 1;
 		if (color == Color.BLACK) {
 			piece = -1;
@@ -96,8 +97,8 @@ public class Input {
 				{ 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 } };
 	}
 
-	private ArrayList<int[]> extractPositions(String[] pieces) {
-		ArrayList<int[]> positions = new ArrayList<>();
+	private List<int[]> extractPositions(String[] pieces) {
+		List<int[]> positions = new ArrayList<>();
 		String rows = "12345678";
 		@SuppressWarnings("SpellCheckingInspection")
 		String cols = "ABCDEFGH";
@@ -196,11 +197,11 @@ public class Input {
 			validatePieceInfo(pieces[0]);
 		}
 
-		private void validateNoRepeatingPositions(ArrayList<int[]> whitePositions, ArrayList<int[]> blackPositions) {
+		private void validateNoRepeatingPositions(List<int[]> whitePositions, List<int[]> blackPositions) {
 			ArrayList<int[]> allPositions = new ArrayList<>(whitePositions);
 			allPositions.addAll(blackPositions);
 			for (int[] currentP : allPositions) {
-				ArrayList<int[]> tempPositions = (ArrayList<int[]>) allPositions.clone();
+				List<int[]> tempPositions = (ArrayList<int[]>) allPositions.clone();
 				tempPositions.remove(currentP);
 				for (int[] p : tempPositions) {
 					if (currentP[0] == p[0] && currentP[1] == p[1]) {

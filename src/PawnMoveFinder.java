@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class PawnMoveFinder extends MoveFinder {
 
 	@Override
-	public ArrayList<int[]> findMoves(int[][] board, Piece piece) {
+	public List<int[]> findMoves(int[][] board, Piece piece) {
 
-		ArrayList<int[]> moves = new ArrayList<>();
+		List<int[]> moves = new ArrayList<>();
 		int[] position = piece.getPosition();
 
 		if (isInLastRow(piece)) {
@@ -72,7 +73,7 @@ public class PawnMoveFinder extends MoveFinder {
 		return 1;
 	}
 
-	private static void addForwardMove(Piece piece, ArrayList<int[]> moves, int numSpaces) {
+	private static void addForwardMove(Piece piece, List<int[]> moves, int numSpaces) {
 		int[] position = piece.getPosition();
 		int spacesAhead = numSpaces;
 		if (piece.isBlack()) {
@@ -111,7 +112,7 @@ public class PawnMoveFinder extends MoveFinder {
 		}
 	}
 
-	private static void addForwardRightMove(Piece piece, ArrayList<int[]> moves) {
+	private static void addForwardRightMove(Piece piece, List<int[]> moves) {
 		int[] position = piece.getPosition();
 		int forward = 1;
 		if (piece.isBlack()) {
@@ -120,7 +121,7 @@ public class PawnMoveFinder extends MoveFinder {
 		moves.add(new int[] { position[0] + forward, position[1] + 1 });
 	}
 
-	private static void addForwardLeftMove(Piece piece, ArrayList<int[]> moves) {
+	private static void addForwardLeftMove(Piece piece, List<int[]> moves) {
 		int[] position = piece.getPosition();
 		int forward = 1;
 		if (piece.isBlack()) {
