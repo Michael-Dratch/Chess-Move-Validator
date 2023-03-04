@@ -2,7 +2,7 @@ import java.util.List;
 
 public abstract class MoveFinder {
 
-	abstract List<int[]> findMoves(int[][] bord, Piece piece);
+	abstract List<int[]> findMoves(int[][] board, Piece piece);
 
 	protected boolean isInLastRow(Piece piece) {
 		if (piece.isBlack()) {
@@ -12,7 +12,7 @@ public abstract class MoveFinder {
 		}
 	}
 
-	protected int getPieceValue(Piece piece) {
+	protected static int getPieceValue(Piece piece) {
 		if (piece.getColor() == Piece.Color.WHITE) {
 			return 1;
 		}
