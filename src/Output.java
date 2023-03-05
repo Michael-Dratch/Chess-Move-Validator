@@ -21,7 +21,7 @@ public class Output {
 	}
 
 	private String getPieceLetter(Piece.PieceType pieceType) {
-		String letter = switch (pieceType) {
+		return switch (pieceType) {
 		case KING -> "K";
 		case QUEEN -> "Q";
 		case ROOK -> "R";
@@ -29,7 +29,6 @@ public class Output {
 		case KNIGHT -> "N";
 		default -> "P";
 		};
-		return letter;
 	}
 
 	private String getPositionString(int[] position) {

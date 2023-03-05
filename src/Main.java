@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class Main {
@@ -20,8 +19,7 @@ public class Main {
 	private static List<int[]> getMoves(int[][] board, Piece piece) {
 		Piece.PieceType pieceType = piece.getType();
 		MoveFinder moveFinder = getMoveFinder(pieceType);
-		List<int[]> moves = moveFinder.findMoves(board, piece);
-		return moves;
+		return moveFinder.findMoves(board, piece);
 	}
 
 	private static MoveFinder getMoveFinder(Piece.PieceType pieceType) {
