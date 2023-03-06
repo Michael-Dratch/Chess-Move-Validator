@@ -19,14 +19,6 @@ public abstract class MoveFinder {
 		return -1;
 	}
 
-	protected boolean isInBottomRow(Piece piece) {
-		return piece.getPosition()[0] == 0;
-	}
-
-	protected boolean isInTopRow(Piece piece) {
-		return piece.getPosition()[0] == 7;
-	}
-
 	protected boolean isInRightCol(Piece piece) {
 		return piece.getPosition()[1] == 7;
 	}

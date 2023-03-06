@@ -1,15 +1,47 @@
-Last sessions:
+Michael Dratch
+msd328@drexel.edu
+SE576
+3/5/23
 
-Finished input validation
-Created the algorithm to extract positions of pieces from the input strings
+Programming Assignment
+
+Program Description:
+The program takes a description of a chess board and selects a piece to move and prints in
+the terminal a list of all of the valid moves that piece could take.
+
+Example input argument:
+"
+WHITE: Rf1, Kg1, Pf2, Ph2, Pg3
+BLACK: Kb8, Ne8, Pa7, Pb7, Pc7, Ra5
+PIECE TO MOVE: Rf1
+"
+
+Example result:
+LEGAL MOVES FOR Rf1: e1, d1, c1, b1, a1
 
 
-TODO:
+Static Analysis:
 
-Input:
+For this project I used PMD and the Intellij static analysis tool to perform static
+analysis after completing each component of the project. The results of this are provided
+in a static analysis report provided in the project zip file.
 
-Use extract position algorithm to build a board array.
-Return this board array to main
+Testing:
 
-create method to return piece object to be analyzed
+All tests are included in the test directory. Each class tests a different component
+in the program and MainTest includes integration tests that test the entire program.
+The tests use the junit testing framework and require junit to be installed.
+The entire test suite can be run by right clicking the test directory in intellij
+and clicking "Run 'All' Tests". If using a different IDE where you can not run the
+entire directory, each file can be run independently to get all of the tests results.
 
+Code Coverage:
+
+I used the integrated Intellij Code Coverage Runner to see the line coverage and
+branch coverage of my test suite. Here are the results:
+
+line coverage: 99% (1014/1024)
+branch coverage: 94% (568/598)
+
+A screenshot of the more detailed report is provided in the project zip file and
+shows line and branch coverage of each class.
